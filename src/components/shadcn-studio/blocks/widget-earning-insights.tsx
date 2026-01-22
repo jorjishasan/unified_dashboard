@@ -42,7 +42,7 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
   ]
 
   return (
-    <Card className={cn('rounded-xl border py-6 shadow-sm', className)}>
+    <Card className={cn('rounded-xl border shadow-sm', className)}>
       <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 pb-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Earning insights</span>
