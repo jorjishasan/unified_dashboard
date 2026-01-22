@@ -38,13 +38,13 @@ const DashboardShell = () => {
         <div className='grid grid-cols-1 gap-6 lg:grid-cols-12'>
           {/* Top Row: KPI Cards (left) + Earning Insights (right) */}
           <div className='col-span-full grid gap-6 lg:grid-cols-12'>
-            {/* KPI Cards - Left Side (1/3 width) */}
-            <div className='lg:col-span-4'>
+            {/* KPI Cards - Left Side */}
+            <div className='lg:col-span-5'>
               <KPICards />
             </div>
 
-            {/* Earning Insights - Right Side (2/3 width) */}
-            <div className='col-span-full lg:max-xl:-order-1 lg:col-span-8'>
+            {/* Earning Insights - Right Side */}
+            <div className='col-span-full lg:max-xl:-order-1 lg:col-span-7'>
               <EarningInsightsCard />
             </div>
           </div>

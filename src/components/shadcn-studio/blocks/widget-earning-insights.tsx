@@ -62,7 +62,7 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='flex flex-col gap-4 px-6 pt-4'>
+      <CardContent className='flex flex-col  px-6 pt-4'>
         {/* Main Earning Display with Chart */}
         <div className='grid gap-10 md:grid-cols-5'>
           {/* Left: Text Content */}
