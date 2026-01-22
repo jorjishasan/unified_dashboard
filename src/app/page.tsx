@@ -52,8 +52,8 @@ import LanguageDropdown from '@/components/shadcn-studio/blocks/dropdown-languag
 import ProductInsightsCard from '@/components/shadcn-studio/blocks/widget-product-insights'
 import ProfileDropdown from '@/components/shadcn-studio/blocks/dropdown-profile'
 import SalesMetricsCard from '@/components/shadcn-studio/blocks/chart-sales-metrics'
+import OrdersCard from '@/components/shadcn-studio/blocks/widget-orders'
 import StatisticsCard from '@/components/shadcn-studio/blocks/statistics-card-01'
-import TotalEarningCard from '@/components/shadcn-studio/blocks/widget-total-earning'
 import TransactionDatatable, { type Item } from '@/components/shadcn-studio/blocks/datatable-transaction'
 
 // Statistics card data
@@ -75,24 +75,6 @@ const StatisticsCardData = [
     value: '27',
     title: 'Missed Delivery Slots',
     changePercentage: '+4.3%'
-  }
-]
-
-// Earning data for Total Earning card
-const earningData = [
-  {
-    img: 'https://cdn.shadcnstudio.com/ss-assets/blocks/dashboard-application/widgets/zipcar.png',
-    platform: 'Zipcar',
-    technologies: 'Vuejs & HTML',
-    earnings: '-$23,569.26',
-    progressPercentage: 75
-  },
-  {
-    img: 'https://cdn.shadcnstudio.com/ss-assets/blocks/dashboard-application/widgets/bitbank.png',
-    platform: 'Bitbank',
-    technologies: 'Figma & React',
-    earnings: '-$12,650.31',
-    progressPercentage: 25
   }
 ]
 
@@ -554,16 +536,8 @@ const DashboardShell = () => {
                 {/* Product Insights Card */}
                 <ProductInsightsCard className='justify-between gap-3 [&>[data-slot=card-content]]:space-y-5' />
 
-                {/* Total Earning Card */}
-                <TotalEarningCard
-                  title='Total Earning'
-                  earning={24650}
-                  trend='up'
-                  percentage={10}
-                  comparisonText='Compare to last year ($84,325)'
-                  earningData={earningData}
-                  className='justify-between gap-5 sm:min-w-0 [&>[data-slot=card-content]]:space-y-7'
-                />
+                {/* Orders Card */}
+                <OrdersCard className='justify-between gap-5 sm:min-w-0 [&>[data-slot=card-content]]:space-y-7' />
               </div>
 
               <SalesMetricsCard className='col-span-full xl:col-span-2 [&>[data-slot=card-content]]:space-y-6' />
