@@ -29,23 +29,23 @@ const newOrdersData: Order[] = [
   {
     id: '1',
     sender: {
-      name: 'Rahman Ahmed',
+      name: 'Mustafa Rahman',
       address: '101 Dhanmondi, Dhaka(BD), 1205'
     },
     receiver: {
-      name: 'Fatima Khan',
-      address: '203 Gulshan, Dhaka(BD), 1212'
+      name: 'Barun Chowdhury',
+      address: '939 Gulshan, Dhaka(BD), 1212'
     }
   },
   {
     id: '2',
     sender: {
-      name: 'Hasan Ali',
-      address: '305 Mirpur, Dhaka(BD), 1216'
+      name: 'Lutfor Rahman',
+      address: '203 Mirpur, Dhaka(BD), 1216'
     },
     receiver: {
-      name: 'Ayesha Rahman',
-      address: '407 Uttara, Dhaka(BD), 1230'
+      name: 'Ema Jahan',
+      address: '305 Uttara, Dhaka(BD), 1230'
     }
   }
 ]
@@ -54,23 +54,23 @@ const pendingOrdersData: Order[] = [
   {
     id: '3',
     sender: {
-      name: 'Karim Uddin',
-      address: '501 Banani, Dhaka(BD), 1213'
+      name: 'Ava Begum',
+      address: 'Your package has been dispatched'
     },
     receiver: {
-      name: 'Nusrat Jahan',
-      address: '603 Wari, Dhaka(BD), 1203'
+      name: 'Rayan Talukder',
+      address: 'The package is out for delivery today'
     }
   },
   {
     id: '4',
     sender: {
-      name: 'Shahid Hossain',
-      address: '705 Motijheel, Dhaka(BD), 1000'
+      name: 'Olivia Khatun',
+      address: 'Your package has been dispatched'
     },
     receiver: {
-      name: 'Tasnim Begum',
-      address: '807 Tejgaon, Dhaka(BD), 1208'
+      name: 'Jahangir Das',
+      address: 'Successfully delivered today at 12:30 PM'
     }
   }
 ]
@@ -79,23 +79,23 @@ const shippingOrdersData: Order[] = [
   {
     id: '5',
     sender: {
-      name: 'Mohammad Ali',
-      address: '901 Chittagong, Chittagong(BD), 4000'
+      name: 'Nuhash Pasha',
+      address: 'Delivering in 2 days from now (July 13, 2025)'
     },
     receiver: {
-      name: 'Sultana Akter',
-      address: '1003 Sylhet, Sylhet(BD), 3100'
+      name: 'Golapi Karim',
+      address: '939 Gulshan, Dhaka(BD), 1212'
     }
   },
   {
     id: '6',
     sender: {
-      name: 'Abdul Rahman',
-      address: '1105 Rajshahi, Rajshahi(BD), 6000'
+      name: 'Lily Wazed',
+      address: 'July 11, 2025 (Delivered at 12:30 PM)'
     },
     receiver: {
-      name: 'Rashida Khatun',
-      address: '1207 Khulna, Khulna(BD), 9000'
+      name: 'Maya Siddique',
+      address: 'July 11, 2025 (Delivered at 12:30 PM)'
     }
   }
 ]
@@ -115,7 +115,7 @@ const OrderItem = ({ order }: { order: Order }) => (
       <hr
         role='separator'
         aria-orientation='vertical'
-        className='col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full border-l border-dashed border-muted bg-transparent'
+        className='col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full border-l border-dashed border-muted/100 bg-transparent'
       />
       <p
         role='heading'
@@ -156,8 +156,8 @@ const OrderItem = ({ order }: { order: Order }) => (
 
 const OrdersCard = () => {
   return (
-    <Card className='bg-card text-card-foreground flex flex-col rounded-xl border shadow-sm gap-4 xl:col-span-2'>
-      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 gap-2 px-6 pb-0'>
+    <Card className='bg-card text-card-foreground flex py-6 flex-col rounded-xl border shadow-sm gap-4 xl:col-span-2'>
+      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 gap-2 px-6 py-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Orders</span>
           <span className='text-muted-foreground text-sm'>75 Deliveries in progress</span>
@@ -180,8 +180,8 @@ const OrdersCard = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <Tabs defaultValue='new' className='flex flex-col gap-4'>
-        <TabsList className='text-muted-foreground inline-flex h-9 items-center justify-center bg-background w-full rounded-none border-b p-0'>
+      <Tabs defaultValue='new' className='flex flex-col gap-0'>
+        <TabsList className='text-muted-foreground inline-flex h-9 mb-4 items-center justify-center bg-background w-full rounded-none border-b p-0'>
           <TabsTrigger
             value='new'
             className='inline-flex flex-1 items-center justify-center gap-1.5 px-2 py-1 text-sm font-medium whitespace-nowrap bg-background data-[state=active]:border-primary h-full rounded-none border-0 border-b-2 border-transparent'
@@ -201,7 +201,7 @@ const OrdersCard = () => {
             Shipping
           </TabsTrigger>
         </TabsList>
-        <TabsContent value='new' className='outline-none flex flex-col gap-4'>
+        <TabsContent value='new' className='flex-1 outline-none flex flex-col gap-4'>
           <div className='flex flex-col gap-4 pr-6 pl-2'>
             <ul className='grid [&>li]:grid-cols-[0_min-content_1fr]'>
               <OrderItem order={newOrdersData[0]} />
@@ -216,7 +216,7 @@ const OrdersCard = () => {
             </ul>
           </div>
         </TabsContent>
-        <TabsContent value='pending' className='outline-none flex flex-col gap-4'>
+        <TabsContent value='pending' className='flex-1 outline-none flex flex-col gap-4'>
           <div className='flex flex-col gap-4 pr-6 pl-2'>
             <ul className='grid [&>li]:grid-cols-[0_min-content_1fr]'>
               <OrderItem order={pendingOrdersData[0]} />
@@ -231,7 +231,7 @@ const OrdersCard = () => {
             </ul>
           </div>
         </TabsContent>
-        <TabsContent value='shipping' className='outline-none flex flex-col gap-4'>
+        <TabsContent value='shipping' className='flex-1 outline-none flex flex-col gap-4'>
           <div className='flex flex-col gap-4 pr-6 pl-2'>
             <ul className='grid [&>li]:grid-cols-[0_min-content_1fr]'>
               <OrderItem order={shippingOrdersData[0]} />
