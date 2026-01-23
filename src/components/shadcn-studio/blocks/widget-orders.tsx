@@ -115,7 +115,7 @@ const OrderItem = ({ order }: { order: Order }) => (
       <hr
         role='separator'
         aria-orientation='vertical'
-        className='col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-0.5 justify-center rounded-full border-l border-dashed border-muted/100 bg-transparent'
+        className='col-start-2 col-end-3 row-start-2 row-end-2 mx-auto flex h-full min-h-16 w-1 justify-center rounded-full border-l-2 border-dashed border-muted/40 bg-transparent'
       />
       <p
         role='heading'
