@@ -42,7 +42,7 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
   ]
 
   return (
-    <Card className={cn('bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm gap-4', className)}>
+    <Card className={cn('bg-card text-card-foreground flex flex-col rounded-[14px] border py-6 shadow-sm gap-4', className)}>
       <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 py-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Earning insights</span>
@@ -111,7 +111,7 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
         </div>
 
         {/* Sub Cards */}
-        <div className='flex flex-wrap justify-between gap-5 rounded-xl border p-6 md:gap-6'>
+        <div className='flex flex-wrap justify-between gap-5 rounded-[14px] border p-6 md:gap-6'>
           {subCards.map((card, index) => (
             <div key={index} className='flex flex-col gap-3'>
               <div className='flex items-center gap-2'>

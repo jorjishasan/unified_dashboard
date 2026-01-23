@@ -59,7 +59,7 @@ const products: Product[] = [
 
 const PopularProductsCard = () => {
   return (
-    <Card className='flex flex-col rounded-xl border shadow-sm gap-3 xl:col-span-2'>
+    <Card className='flex flex-col rounded-[14px] border shadow-sm gap-3 xl:col-span-2'>
       <CardHeader className='!flex !flex-row items-start justify-between space-y-0 gap-2 px-6 pb-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Popular product</span>

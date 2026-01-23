@@ -156,7 +156,7 @@ const OrderItem = ({ order }: { order: Order }) => (
 
 const OrdersCard = () => {
   return (
-    <Card className='bg-card text-card-foreground flex py-6 flex-col rounded-xl border shadow-sm gap-4 xl:col-span-2'>
+    <Card className='bg-card text-card-foreground flex py-6 flex-col rounded-[14px] border shadow-sm gap-4 xl:col-span-2'>
       <CardHeader className='!flex !flex-row items-start justify-between space-y-0 gap-2 px-6 py-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Orders</span>

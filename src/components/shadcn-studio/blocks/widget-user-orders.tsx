@@ -34,8 +34,8 @@ const UserOrdersCard = () => {
   ]
 
   return (
-    <Card className='bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm gap-4 xl:col-span-2 h-full'>
-      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 py-0'>
+    <Card className='bg-card text-card-foreground flex flex-col rounded-[14px] border py-6 shadow-sm gap-4 xl:col-span-2'>
+      <CardHeader className='flex items-start flex-row justify-between gap-2 py-0 px-6'>
         <div className='flex items-center gap-2'>
           <Avatar className='relative flex shrink-0 overflow-hidden size-[38px] rounded-lg'>
             <AvatarImage
@@ -46,7 +46,7 @@ const UserOrdersCard = () => {
             <AvatarFallback>JH</AvatarFallback>
           </Avatar>
           <div className='flex flex-col gap-1'>
-            <span className='text-xl font-medium'>@jorjishasan</span>
+            <span className='text-[20px] font-medium'>@jorjishasan</span>
             <span className='text-muted-foreground text-sm'>Business</span>
           </div>
         </div>
@@ -67,15 +67,15 @@ const UserOrdersCard = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='px-6 flex flex-1 flex-col gap-6 min-h-0'>
-        <Separator />
-        <div className='flex flex-1 flex-col gap-2 min-h-0'>
+      <CardContent className='px-6 flex flex-1 flex-col gap-6'>
+        <div data-orientation="horizontal" role="none" className="bg-border shrink-0 h-px w-full"></div>
+        <div className='flex flex-1 flex-col gap-2'>
           <div className='flex items-baseline gap-2'>
             <span className='text-2xl font-medium'>4,689</span>
             <span className='text-muted-foreground text-sm'>Orders</span>
           </div>
-          <Tabs defaultValue='shipped' className='flex flex-col flex-1 justify-between gap-6 min-h-0'>
-            <TabsList className='bg-muted inline-flex h-9 items-center justify-center rounded-lg p-[3px] w-full shrink-0'>
+          <Tabs defaultValue='shipped' className='flex flex-col flex-1 justify-between gap-6'>
+            <TabsList className='bg-muted text-muted-foreground inline-flex h-9 items-center justify-center rounded-lg p-[3px] w-full'>
               <TabsTrigger
                 value='packed'
                 className='h-[calc(100%-1px)] flex-1 justify-center rounded-md border border-transparent py-1 text-sm font-medium whitespace-nowrap data-[state=active]:bg-background data-[state=active]:shadow-sm flex items-center gap-1 px-1.5'
@@ -98,83 +98,99 @@ const UserOrdersCard = () => {
                 <span className='max-sm:hidden'>Received</span>
               </TabsTrigger>
             </TabsList>
-            <div className='relative flex-1 min-h-0 overflow-hidden'>
-              <TabsContent value='packed' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
-                {packedItems.map((item, index) => (
-                  <div key={index} className='space-y-2'>
-                    <div className='flex items-center justify-between'>
-                      <span>{item.label}</span>
-                      <span className='text-muted-foreground text-sm'>{item.value}</span>
-                    </div>
+            <TabsContent 
+              value='packed' 
+              className='hidden data-[state=active]:flex flex-1 outline-none flex-col justify-evenly gap-6' 
+              data-slot='tabs-content'
+            >
+              {packedItems.map((item, index) => (
+                <div key={index} className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <span>{item.label}</span>
+                    <span className='text-muted-foreground text-sm'>{item.value}</span>
+                  </div>
+                  <div
+                    aria-valuemax={100}
+                    aria-valuemin={0}
+                    role='progressbar'
+                    data-state='indeterminate'
+                    data-max={100}
+                    data-slot='progress'
+                    className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
+                  >
                     <div
-                      aria-valuemax={100}
-                      aria-valuemin={0}
-                      role='progressbar'
                       data-state='indeterminate'
                       data-max={100}
-                      className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
-                    >
-                      <div
-                        data-state='indeterminate'
-                        data-max={100}
-                        className='bg-primary h-full w-full flex-1 transition-all'
-                        style={{ transform: `translateX(-${100 - item.progress}%)` }}
-                      />
-                    </div>
+                      data-slot='progress-indicator'
+                      className='bg-primary h-full w-full flex-1 transition-all'
+                      style={{ transform: `translateX(-${100 - item.progress}%)` }}
+                    />
                   </div>
-                ))}
-              </TabsContent>
-              <TabsContent value='shipped' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
-                {shippedItems.map((item, index) => (
-                  <div key={index} className='space-y-2'>
-                    <div className='flex items-center justify-between'>
-                      <span>{item.label}</span>
-                      <span className='text-muted-foreground text-sm'>{item.value}</span>
-                    </div>
+                </div>
+              ))}
+            </TabsContent>
+            <TabsContent 
+              value='shipped' 
+              className='hidden data-[state=active]:flex flex-1 outline-none flex-col justify-evenly gap-6' 
+              data-slot='tabs-content'
+            >
+              {shippedItems.map((item, index) => (
+                <div key={index} className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <span>{item.label}</span>
+                    <span className='text-muted-foreground text-sm'>{item.value}</span>
+                  </div>
+                  <div
+                    aria-valuemax={100}
+                    aria-valuemin={0}
+                    role='progressbar'
+                    data-state='indeterminate'
+                    data-max={100}
+                    data-slot='progress'
+                    className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
+                  >
                     <div
-                      aria-valuemax={100}
-                      aria-valuemin={0}
-                      role='progressbar'
                       data-state='indeterminate'
                       data-max={100}
-                      className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
-                    >
-                      <div
-                        data-state='indeterminate'
-                        data-max={100}
-                        className='bg-primary h-full w-full flex-1 transition-all'
-                        style={{ transform: `translateX(-${100 - item.progress}%)` }}
-                      />
-                    </div>
+                      data-slot='progress-indicator'
+                      className='bg-primary h-full w-full flex-1 transition-all'
+                      style={{ transform: `translateX(-${100 - item.progress}%)` }}
+                    />
                   </div>
-                ))}
-              </TabsContent>
-              <TabsContent value='received' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
-                {receivedItems.map((item, index) => (
-                  <div key={index} className='space-y-2'>
-                    <div className='flex items-center justify-between'>
-                      <span>{item.label}</span>
-                      <span className='text-muted-foreground text-sm'>{item.value}</span>
-                    </div>
+                </div>
+              ))}
+            </TabsContent>
+            <TabsContent 
+              value='received' 
+              className='hidden data-[state=active]:flex flex-1 outline-none flex-col justify-evenly gap-6' 
+              data-slot='tabs-content'
+            >
+              {receivedItems.map((item, index) => (
+                <div key={index} className='space-y-2'>
+                  <div className='flex items-center justify-between'>
+                    <span>{item.label}</span>
+                    <span className='text-muted-foreground text-sm'>{item.value}</span>
+                  </div>
+                  <div
+                    aria-valuemax={100}
+                    aria-valuemin={0}
+                    role='progressbar'
+                    data-state='indeterminate'
+                    data-max={100}
+                    data-slot='progress'
+                    className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
+                  >
                     <div
-                      aria-valuemax={100}
-                      aria-valuemin={0}
-                      role='progressbar'
                       data-state='indeterminate'
                       data-max={100}
-                      className='bg-primary/20 relative h-2 w-full overflow-hidden rounded-full'
-                    >
-                      <div
-                        data-state='indeterminate'
-                        data-max={100}
-                        className='bg-primary h-full w-full flex-1 transition-all'
-                        style={{ transform: `translateX(-${100 - item.progress}%)` }}
-                      />
-                    </div>
+                      data-slot='progress-indicator'
+                      className='bg-primary h-full w-full flex-1 transition-all'
+                      style={{ transform: `translateX(-${100 - item.progress}%)` }}
+                    />
                   </div>
-                ))}
-              </TabsContent>
-            </div>
+                </div>
+              ))}
+            </TabsContent>
           </Tabs>
         </div>
       </CardContent>
