@@ -67,7 +67,7 @@ const UserOrdersCard = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='px-6 flex flex-1 flex-col gap-6'>
+      <CardContent className='px-6 flex flex-1 flex-col gap-6 py-0'>
         <div data-orientation="horizontal" role="none" className="bg-border shrink-0 h-px w-full"></div>
         <div className='flex flex-1 flex-col gap-2'>
           <div className='flex items-baseline gap-2'>
