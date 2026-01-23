@@ -65,7 +65,7 @@ const PopularProductsCard = () => {
           <span className='text-lg font-semibold'>Popular product</span>
           <span className='text-muted-foreground text-sm'>Total 10.4K visitors</span>
         </div>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
               variant='ghost'

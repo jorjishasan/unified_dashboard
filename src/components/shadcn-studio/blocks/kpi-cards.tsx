@@ -50,7 +50,7 @@ const kpiData: KPICardData[] = [
 
 const KPICard = ({ data }: { data: KPICardData }) => {
   return (
-    <Card className='flex flex-col rounded-[14px] border py-6 shadow-sm gap-4'>
+    <Card className='bg-card text-card-foreground flex flex-col rounded-[14px] border py-6 shadow-sm gap-4'>
       <CardHeader className='flex flex-row items-start justify-between px-6 py-0'>
         <Avatar className='relative flex shrink-0 size-[37.99px] overflow-hidden  rounded-md'>
           <AvatarFallback className='flex items-center justify-center bg-primary/10 text-primary size-[37px] shrink-0 rounded-md [&>svg]:size-[19px]'>
@@ -80,11 +80,11 @@ const KPICard = ({ data }: { data: KPICardData }) => {
 
 const KPICards = () => {
   return (
-    <div className='grid w-full gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2'>
+    <>
       {kpiData.map((data, index) => (
         <KPICard key={index} data={data} />
       ))}
-    </div>
+    </>
   )
 }
 

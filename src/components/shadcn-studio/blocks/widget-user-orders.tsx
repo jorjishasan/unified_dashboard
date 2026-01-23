@@ -34,8 +34,8 @@ const UserOrdersCard = () => {
   ]
 
   return (
-    <Card className='flex flex-col rounded-xl border shadow-sm gap-4 xl:col-span-2'>
-      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 pb-0'>
+    <Card className='bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm gap-4 xl:col-span-2 h-full'>
+      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 py-0'>
         <div className='flex items-center gap-2'>
           <Avatar className='relative flex shrink-0 overflow-hidden size-[38px] rounded-lg'>
             <AvatarImage
@@ -50,7 +50,7 @@ const UserOrdersCard = () => {
             <span className='text-muted-foreground text-sm'>Business</span>
           </div>
         </div>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
               variant='ghost'
@@ -67,15 +67,15 @@ const UserOrdersCard = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='px-6 flex flex-1 flex-col gap-6'>
+      <CardContent className='px-6 flex flex-1 flex-col gap-6 min-h-0'>
         <Separator />
-        <div className='flex flex-1 flex-col gap-2'>
+        <div className='flex flex-1 flex-col gap-2 min-h-0'>
           <div className='flex items-baseline gap-2'>
             <span className='text-2xl font-medium'>4,689</span>
             <span className='text-muted-foreground text-sm'>Orders</span>
           </div>
-          <Tabs defaultValue='shipped' className='flex flex-col flex-1 justify-between gap-6'>
-            <TabsList className='bg-muted inline-flex h-9 items-center justify-center rounded-lg p-[3px] w-full'>
+          <Tabs defaultValue='shipped' className='flex flex-col flex-1 justify-between gap-6 min-h-0'>
+            <TabsList className='bg-muted inline-flex h-9 items-center justify-center rounded-lg p-[3px] w-full shrink-0'>
               <TabsTrigger
                 value='packed'
                 className='h-[calc(100%-1px)] flex-1 justify-center rounded-md border border-transparent py-1 text-sm font-medium whitespace-nowrap data-[state=active]:bg-background data-[state=active]:shadow-sm flex items-center gap-1 px-1.5'
@@ -98,8 +98,8 @@ const UserOrdersCard = () => {
                 <span className='max-sm:hidden'>Received</span>
               </TabsTrigger>
             </TabsList>
-            <div className='relative flex-1'>
-              <TabsContent value='packed' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6'>
+            <div className='relative flex-1 min-h-0 overflow-hidden'>
+              <TabsContent value='packed' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
                 {packedItems.map((item, index) => (
                   <div key={index} className='space-y-2'>
                     <div className='flex items-center justify-between'>
@@ -124,7 +124,7 @@ const UserOrdersCard = () => {
                   </div>
                 ))}
               </TabsContent>
-              <TabsContent value='shipped' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6'>
+              <TabsContent value='shipped' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
                 {shippedItems.map((item, index) => (
                   <div key={index} className='space-y-2'>
                     <div className='flex items-center justify-between'>
@@ -149,7 +149,7 @@ const UserOrdersCard = () => {
                   </div>
                 ))}
               </TabsContent>
-              <TabsContent value='received' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6'>
+              <TabsContent value='received' className='absolute inset-0 flex-1 outline-none flex flex-col justify-evenly gap-6 overflow-auto'>
                 {receivedItems.map((item, index) => (
                   <div key={index} className='space-y-2'>
                     <div className='flex items-center justify-between'>

@@ -34,32 +34,26 @@ const DashboardShell = () => {
       </header>
 
       {/* Main Content */}
-      <main className='mx-auto size-full max-w-7xl flex-1 px-4 py-6 sm:px-6'>
-        <div className='grid grid-cols-1 gap-6 lg:grid-cols-12'>
-          {/* Top Row: KPI Cards (left) + Earning Insights (right) */}
-          <div className='col-span-full grid gap-6 lg:grid-cols-12'>
-            {/* KPI Cards - Left Side */}
-            <div className='lg:col-span-5'>
-              <KPICards />
-            </div>
-
-            {/* Earning Insights - Right Side */}
-            <div className='col-span-full lg:max-xl:-order-1 lg:col-span-7'>
-              <EarningInsightsCard />
-            </div>
+      <main className='mx-auto size-full max-w-7xl flex-1 py-6'>
+        <div data-slot='card-content' className='px-6 grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-6'>
+          {/* KPI Cards Container */}
+          <div className='grid gap-6 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-2 xl:col-span-2'>
+            <KPICards />
           </div>
 
-          {/* Bottom Row: User Orders, Orders, Popular Products */}
-          <div className='col-span-full grid gap-6 lg:grid-cols-2 xl:grid-cols-6'>
-            {/* User Orders Card */}
-            <UserOrdersCard />
-
-            {/* Orders Card */}
-            <OrdersCard />
-
-            {/* Popular Products */}
-            <PopularProductsCard />
+          {/* Earning Insights Card */}
+          <div className='col-span-full lg:max-xl:-order-1 xl:col-span-4'>
+            <EarningInsightsCard />
           </div>
+
+          {/* User Orders Card */}
+          <UserOrdersCard />
+
+          {/* Orders Card */}
+          <OrdersCard />
+
+          {/* Popular Products */}
+          <PopularProductsCard />
 
           {/* Product Table - Full Width */}
           <div className='col-span-full'>

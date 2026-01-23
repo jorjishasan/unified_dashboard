@@ -162,7 +162,7 @@ const OrdersCard = () => {
           <span className='text-lg font-semibold'>Orders</span>
           <span className='text-muted-foreground text-sm'>75 Deliveries in progress</span>
         </div>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button
               variant='ghost'

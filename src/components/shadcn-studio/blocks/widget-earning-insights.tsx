@@ -42,15 +42,15 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
   ]
 
   return (
-    <Card className={cn('rounded-xl border shadow-sm', className)}>
-      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 pb-0'>
+    <Card className={cn('bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm gap-4', className)}>
+      <CardHeader className='!flex !flex-row items-start justify-between space-y-0 px-6 py-0'>
         <div className='flex flex-col gap-1'>
           <span className='text-lg font-semibold'>Earning insights</span>
           <span className='text-muted-foreground text-sm'>Weekly Earning overview</span>
         </div>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <button className='text-muted-foreground hover:bg-accent hover:text-accent-foreground size-6 shrink-0 rounded-full'>
+            <button className='text-muted-foreground hover:bg-accent ml-auto hover:text-accent-foreground size-6 shrink-0 rounded-full flex items-center justify-center'>
               <EllipsisVertical className='size-4' />
               <span className='sr-only'>Menu</span>
             </button>
@@ -62,11 +62,11 @@ const EarningInsightsCard = ({ className }: { className?: string }) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='flex flex-col  px-6 pt-4'>
+      <CardContent className='px-6 py-0 flex flex-col gap-4'>
         {/* Main Earning Display with Chart */}
         <div className='grid gap-10 md:grid-cols-5'>
           {/* Left: Text Content */}
-          <div className='flex flex-col gap-4 md:col-span-2'>
+          <div className='flex flex-col justify-center gap-4 md:col-span-2'>
             <div className='flex items-center gap-4'>
               <span className='text-6xl font-medium'>$4.6K</span>
               <Badge variant='outline' className='border-transparent bg-primary/10 text-primary rounded-sm px-3 py-1'>
