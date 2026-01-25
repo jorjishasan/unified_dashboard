@@ -1,6 +1,13 @@
 import type { Metadata } from "next"
 import { GeistSans } from "geist/font/sans"
+import { Instrument_Serif } from "next/font/google"
 import "./globals.css"
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-instrument-serif",
+})
 
 export const metadata: Metadata = {
   title: "Unified Dashboard",
@@ -11,7 +18,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={GeistSans.className}>{children}</body>
+      <body className={`${GeistSans.className} ${instrumentSerif.variable}`}>{children}</body>
     </html>
   )
 }
