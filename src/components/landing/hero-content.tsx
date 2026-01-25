@@ -21,36 +21,42 @@ export const HeroContent = () => {
           Premium shadcn/ui templates, save weeks of time.
         </p>
 
-        <Link 
-          href="/dashboards/productsales"
-          className="group relative bg-white text-black px-8 py-3.5 sm:py-4 rounded-full flex items-center gap-1 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.4)]"
+        <m.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ 
+            duration: 0.8, 
+            delay: 0.4,
+            ease: [0.21, 0.47, 0.32, 0.98] 
+          }}
         >
-          <span 
-            className="relative z-10 text-lg sm:text-xl font-medium tracking-wide" 
-            style={{ fontFamily: 'var(--font-instrument-serif)' }}
+          <Link 
+            href="/dashboards/productsales"
+            className="group relative bg-white text-black px-10 py-4 rounded-full overflow-hidden transition-all duration-500 hover:shadow-[0_0_50px_-10px_rgba(255,255,255,0.5)] active:scale-[0.98] flex flex-col items-center justify-center"
           >
-            Explore Templates
-          </span>
-          
-          <div className="relative w-0 overflow-hidden group-hover:w-6 transition-all duration-300 ease-out">
-            <svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5 text-black min-w-[20px]"
-            >
-              <path 
-                d="M5 12H19M19 12L12 5M19 12L12 19" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-              />
-            </svg>
-          </div>
-        </Link>
+            {/* Double-line Text Slide */}
+            <div className="relative h-7 overflow-hidden pointer-events-none">
+              <span 
+                className="block text-lg sm:text-xl font-medium tracking-tight transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-full"
+                style={{ fontFamily: 'var(--font-instrument-serif)' }}
+              >
+                Explore Templates
+              </span>
+              <span 
+                className="absolute inset-0 block text-lg sm:text-xl font-medium tracking-tight transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] translate-y-full group-hover:translate-y-0 italic text-neutral-600"
+                style={{ fontFamily: 'var(--font-instrument-serif)' }}
+              >
+                Free Preview
+              </span>
+            </div>
+
+            {/* Subtle light sweep effect */}
+            <div className="absolute inset-0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-black/5 to-transparent -z-10" />
+            
+            {/* Background glow */}
+            <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-white/10 blur-xl -z-20" />
+          </Link>
+        </m.div>
       </div>
     </LazyMotion>
   )
