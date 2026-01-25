@@ -10,7 +10,7 @@ const instrumentSerif = Instrument_Serif({
 })
 
 export const metadata: Metadata = {
-  title: "Premium Shadcn/UI Templates",
+  title: "Premium Shadcn Dashboard Templates",
   description: "Premium shadcn dashboard templates, save weeks of time.",
   icons: {
     icon: "favicon.ico",
