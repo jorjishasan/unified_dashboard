@@ -280,11 +280,18 @@ export const VideoLanding = () => {
             Wellness coaching for stress and burnout recovery.
           </p>
 
-          {/* Call to Action Button - NO ANIMATION */}
-          <button className="group bg-white/10 backdrop-blur-sm border border-white/30 px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-full flex items-center gap-2 sm:gap-3 hover:bg-white/20 transition-all duration-300">
-            <span className="text-white font-sans text-xs sm:text-sm md:text-base">Begin your journey</span>
-            <div className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 bg-white rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <ArrowRightIcon className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-black" />
+          {/* Call to Action Button - Editorial Reveal Style */}
+          <button className="group relative bg-white text-black px-8 py-3.5 sm:py-4 rounded-full flex items-center gap-2 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_-5px_rgba(255,255,255,0.6)]">
+            <span 
+              className="relative z-10 text-lg sm:text-xl font-medium tracking-wide transition-all duration-500 group-hover:-translate-x-1" 
+              style={{ fontFamily: 'var(--font-instrument-serif)' }}
+            >
+              Begin your journey
+            </span>
+            
+            {/* Arrow Reveal Animation */}
+            <div className="relative w-0 overflow-hidden group-hover:w-6 transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]">
+              <ArrowRightIcon className="w-5 h-5 text-black min-w-[20px]" />
             </div>
           </button>
         </div>
