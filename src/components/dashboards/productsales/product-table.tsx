@@ -90,16 +90,29 @@ const products: Product[] = [
 ]
 
 const ProductTable = () => {
+  const [productList, setProductList] = useState(products)
   const [currentPage, setCurrentPage] = useState(1)
-  const itemsPerPage = 5
-  const totalItems = 25
+  const [searchQuery, setSearchQuery] = useState('')
+  const [itemsPerPage, setItemsPerPage] = useState(5)
+  const totalEntries = 25 // For demo purposes we can keep it at 25 or use productList.length
+
+  const toggleStock = (id: string) => {
+    setProductList(prev => prev.map(p => 
+      p.id === id ? { ...p, stock: !p.stock } : p
+    ))
+  }
+
+  const filteredProducts = productList.filter(p => 
+    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
   return (
     <Card>
       <CardContent className='flex flex-col gap-4 p-6'>
         {/* Filters */}
         <div className='flex flex-wrap gap-3'>
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='sm'>
                 Select Category <ChevronRight className='ml-2 h-4 w-4' />
@@ -113,7 +126,7 @@ const ProductTable = () => {
               <DropdownMenuItem>Smartwatch</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='sm'>
                 Select Stock <ChevronRight className='ml-2 h-4 w-4' />
@@ -125,7 +138,7 @@ const ProductTable = () => {
               <DropdownMenuItem>Out of Stock</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <DropdownMenu>
+          <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant='outline' size='sm'>
                 Select Status <ChevronRight className='ml-2 h-4 w-4' />
@@ -143,20 +156,26 @@ const ProductTable = () => {
         <div className='flex items-center justify-between gap-4'>
           <div className='relative flex-1 max-w-sm'>
             <Search className='text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2' />
-            <Input placeholder='Search product' className='pl-9' />
+            <Input 
+              placeholder='Search product' 
+              className='pl-9' 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
           </div>
           <div className='flex items-center gap-2'>
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant='outline' size='sm'>
-                  5 <ChevronRight className='ml-2 h-4 w-4' />
+                  {itemsPerPage} <ChevronRight className='ml-2 h-4 w-4' />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
-                <DropdownMenuItem>5</DropdownMenuItem>
-                <DropdownMenuItem>10</DropdownMenuItem>
-                <DropdownMenuItem>25</DropdownMenuItem>
-                <DropdownMenuItem>50</DropdownMenuItem>
+                {[5, 10, 25, 50].map(val => (
+                  <DropdownMenuItem key={val} onClick={() => setItemsPerPage(val)}>
+                    {val}
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
             <Button variant='outline' size='sm'>
@@ -189,7 +208,7 @@ const ProductTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {products.map((product) => (
+              {filteredProducts.map((product) => (
                 <TableRow key={product.id}>
                   <TableCell>
                     <input type='checkbox' className='rounded border-gray-300' />
@@ -210,9 +229,12 @@ const ProductTable = () => {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <div className={cn('h-5 w-10 rounded-full transition-colors', product.stock ? 'bg-green-500' : 'bg-gray-300')}>
+                    <button 
+                      onClick={() => toggleStock(product.id)}
+                      className={cn('h-5 w-10 rounded-full transition-colors cursor-pointer', product.stock ? 'bg-green-500' : 'bg-gray-300')}
+                    >
                       <div className={cn('h-5 w-5 rounded-full bg-white shadow transition-transform', product.stock && 'translate-x-5')} />
-                    </div>
+                    </button>
                   </TableCell>
                   <TableCell className='font-medium'>{product.amount}</TableCell>
                   <TableCell>{product.qty}</TableCell>
@@ -222,16 +244,16 @@ const ProductTable = () => {
                     </Badge>
                   </TableCell>
                   <TableCell>
-                    <DropdownMenu>
+                    <DropdownMenu modal={false}>
                       <DropdownMenuTrigger asChild>
-                        <button className='text-muted-foreground hover:text-foreground'>
+                        <button className='text-muted-foreground hover:text-foreground p-2'>
                           <MoreVertical className='h-4 w-4' />
                         </button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align='end'>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
-                        <DropdownMenuItem>Delete</DropdownMenuItem>
-                        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                        <DropdownMenuItem className='cursor-pointer'>Edit</DropdownMenuItem>
+                        <DropdownMenuItem className='cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50'>Delete</DropdownMenuItem>
+                        <DropdownMenuItem className='cursor-pointer'>Duplicate</DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>
@@ -244,7 +266,7 @@ const ProductTable = () => {
         {/* Pagination */}
         <div className='flex items-center justify-between'>
           <span className='text-muted-foreground text-sm'>
-            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, totalItems)} of {totalItems} entries
+            Showing {((currentPage - 1) * itemsPerPage) + 1} to {Math.min(currentPage * itemsPerPage, totalEntries)} of {totalEntries} entries
           </span>
           <div className='flex items-center gap-2'>
             <Button variant='outline' size='sm' disabled={currentPage === 1} onClick={() => setCurrentPage(p => Math.max(1, p - 1))}>
@@ -266,7 +288,7 @@ const ProductTable = () => {
               2
             </Button>
             <span className='px-2'>...</span>
-            <Button variant='outline' size='sm' disabled={currentPage >= Math.ceil(totalItems / itemsPerPage)} onClick={() => setCurrentPage(p => p + 1)}>
+            <Button variant='outline' size='sm' disabled={currentPage >= Math.ceil(totalEntries / itemsPerPage)} onClick={() => setCurrentPage(p => p + 1)}>
               Next
               <ChevronRight className='ml-1 h-4 w-4' />
             </Button>

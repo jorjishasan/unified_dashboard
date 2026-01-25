@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart'
 
-import VehicleOverviewCard from '@/components/shadcn-studio/blocks/widget-vehicle-overview'
+import VehicleOverviewCard from '@/components/dashboards/productsales/widget-vehicle-overview'
 
 const totalBars = 20
 const filledBars = 12

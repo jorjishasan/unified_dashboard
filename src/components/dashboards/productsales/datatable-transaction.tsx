@@ -270,7 +270,7 @@ function RowActions() {
           <DropdownMenuItem>
             <span>Duplicate</span>
           </DropdownMenuItem>
-          <DropdownMenuItem variant='destructive'>
+          <DropdownMenuItem className='text-red-600 focus:text-red-600 focus:bg-red-50 cursor-pointer'>
             <span>Delete</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>

@@ -19,7 +19,7 @@ export const VideoLanding = () => {
         >
           <source src="/videos/Live_Video_Generation.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-black/30" />
+        <div className="absolute inset-0 bg-black/10" />
       </div>
 
       {/* Main Content Wrapper - SSR Friendly */}
