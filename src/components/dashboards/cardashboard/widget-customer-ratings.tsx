@@ -196,12 +196,13 @@ const CustomerRatingsCard = ({ className }: { className?: string }) => {
                 stroke='var(--color-online)'
                 strokeWidth={5}
                 strokeLinecap='round'
-                dot={(props) => {
+                dot={(props: any) => {
                   const { cx, cy, payload } = props
                   if (payload.month === 'Jul') {
                     // Show dot only on last point
                     return (
                       <svg
+                        key={`dot-${payload.month}`}
                         x={cx - 9}
                         y={cy - 9}
                         width='18'
@@ -209,7 +210,6 @@ const CustomerRatingsCard = ({ className }: { className?: string }) => {
                         viewBox='0 0 20 20'
                         fill='none'
                         xmlns='http://www.w3.org/2000/svg'
-                        key='dot'
                       >
                         <g>
                           <circle
@@ -232,7 +232,7 @@ const CustomerRatingsCard = ({ className }: { className?: string }) => {
                       </svg>
                     )
                   }
-                  return <></>
+                  return <g key={`empty-dot-${payload.month}`}></g>
                 }}
                 activeDot={{ r: 6, fill: 'var(--color-online)' }}
               />

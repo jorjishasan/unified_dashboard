@@ -21,7 +21,8 @@ const vehicleStatuses = [
     duration: '2hr 10min',
     icon: <Car className='size-4' />,
     color: 'bg-muted',
-    iconColor: 'text-muted-foreground'
+    iconColor: 'text-muted-foreground',
+    barColor: 'bg-primary/10'
   },
   {
     label: 'Unloading',
@@ -29,7 +30,8 @@ const vehicleStatuses = [
     duration: '3hr 15min',
     icon: <ArrowDown className='size-4' />,
     color: 'bg-orange-500',
-    iconColor: 'text-orange-500'
+    iconColor: 'text-orange-500',
+    barColor: 'bg-orange-500'
   },
   {
     label: 'Loading',
@@ -37,7 +39,8 @@ const vehicleStatuses = [
     duration: '1hr 24min',
     icon: <ArrowUp className='size-4' />,
     color: 'bg-teal-600',
-    iconColor: 'text-teal-600'
+    iconColor: 'text-teal-600',
+    barColor: 'bg-teal-600'
   },
   {
     label: 'Waiting',
@@ -45,29 +48,27 @@ const vehicleStatuses = [
     duration: '5hr 19min',
     icon: <Clock className='size-4' />,
     color: 'bg-slate-700',
-    iconColor: 'text-slate-700'
+    iconColor: 'text-slate-700',
+    barColor: 'bg-blue-900'
   }
 ]
 
 const VehicleOverviewCard = ({ className }: { className?: string }) => {
-  const [isAnimated, setIsAnimated] = useState(false)
+  const [animated, setAnimated] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimated(true)
-    }, 100)
-
-    return () => clearTimeout(timer)
+    const id = setTimeout(() => setAnimated(true), 50)
+    return () => clearTimeout(id)
   }, [])
 
   return (
-    <Card className={cn('', className)}>
+    <Card className={className}>
       <CardHeader className='flex flex-row items-center justify-between border-b pb-6 px-6'>
         <span className='text-lg font-semibold'>Vehicle overview</span>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <button className='text-muted-foreground hover:text-foreground size-6 rounded-full flex items-center justify-center'>
-              <MoreVertical className='h-5 w-5' />
+            <button className='text-muted-foreground hover:bg-accent hover:text-accent-foreground size-6 rounded-full flex items-center justify-center transition-colors'>
+              <MoreVertical className='size-4' />
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
@@ -80,13 +81,17 @@ const VehicleOverviewCard = ({ className }: { className?: string }) => {
       <CardContent className='flex flex-col gap-6 px-6 pt-6'>
         {/* Progress Bar Section */}
         <div className='flex flex-col gap-3'>
-          {/* Labels - using proportional widths to match source code provided */}
+          {/* Labels */}
           <div className='text-muted-foreground flex text-sm'>
-            {vehicleStatuses.map((status, index) => (
-                <div key={status.label} className="flex flex-col gap-1" style={{ width: `${status.percentage}%` }}>
-                    <span>{status.label}</span>
-                    <div className="bg-muted-foreground/20 h-2.5 w-0.5 rounded-full" />
-                </div>
+            {vehicleStatuses.map((status) => (
+              <div
+                key={status.label}
+                className='flex flex-col gap-1'
+                style={{ width: `${status.percentage}%` }}
+              >
+                <span>{status.label}</span>
+                <div className='bg-muted-foreground h-2.5 w-0.5 rounded-full'></div>
+              </div>
             ))}
           </div>
 
@@ -96,38 +101,37 @@ const VehicleOverviewCard = ({ className }: { className?: string }) => {
               <div
                 key={status.label}
                 className={cn(
-                  'flex items-center justify-center text-sm font-medium transition-all duration-1000 ease-out',
-                  status.color === 'bg-muted' ? 'bg-primary/10 text-primary' : 'text-white',
-                  status.color !== 'bg-muted' && status.color
+                  'flex items-center justify-center p-3 text-sm font-medium transition-all duration-1000 ease-out',
+                  status.barColor,
+                  status.label === 'On the way' ? 'text-primary' : 'text-primary-foreground'
                 )}
                 style={{
-                  width: isAnimated ? `${status.percentage}%` : '0%',
-                  transitionDelay: `${vehicleStatuses.indexOf(status) * 100}ms`
+                  width: `${animated ? status.percentage : 0}%`
                 }}
               >
-                <span className={cn('transition-opacity duration-500', isAnimated ? 'opacity-100' : 'opacity-0')}>
-                  {status.percentage}%
-                </span>
+                <span>{status.percentage}%</span>
               </div>
             ))}
           </div>
         </div>
 
         {/* Detailed List Section */}
-        <div className='flex flex-col gap-0'>
+        <div>
           {vehicleStatuses.map((status, index) => (
-            <div key={status.label}>
-              <div className={cn('flex items-center justify-between py-3', index < vehicleStatuses.length - 1 ? 'border-b' : '')}>
-                <div className='text-muted-foreground flex items-center gap-4'>
-                  <div className="[&>svg]:size-4">
-                    {status.icon}
-                  </div>
-                  <span className='text-sm font-medium'>{status.label}</span>
-                </div>
-                <div className='flex items-center gap-4'>
-                  <span className='text-sm font-semibold'>{status.duration}</span>
-                  <span className='text-muted-foreground text-sm'>{status.percentage}%</span>
-                </div>
+            <div
+              key={status.label}
+              className={cn(
+                'flex items-center justify-between px-2 py-3',
+                index < vehicleStatuses.length - 1 ? 'border-b' : ''
+              )}
+            >
+              <div className='text-muted-foreground flex items-center gap-4 [&>svg]:size-4'>
+                {status.icon}
+                <span>{status.label}</span>
+              </div>
+              <div className='flex items-center gap-4'>
+                <span className='font-medium'>{status.duration}</span>
+                <span className='text-muted-foreground text-sm'>{status.percentage}%</span>
               </div>
             </div>
           ))}

@@ -129,8 +129,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <div className="text-sm text-muted-foreground">Reached 30% from target</div>
           </div>
         </div>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground/70 text-sm mb-2">Pages</SidebarGroupLabel>
+        <SidebarGroup className="px-4">
+          <SidebarGroupLabel className="text-foreground/70 text-sm mb-2 px-0">Pages</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="grid grid-cols-2 gap-4">
               {data.pages.map((item) => (
@@ -146,8 +146,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground/70 text-sm mb-4">Settings & Profile</SidebarGroupLabel>
+        <SidebarGroup className="px-4">
+          <SidebarGroupLabel className="text-foreground/70 text-sm mb-4 px-0">Settings & Profile</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu className="flex flex-col gap-1">
               {data.settings.map((item) => (

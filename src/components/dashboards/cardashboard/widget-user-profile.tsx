@@ -34,7 +34,7 @@ const UserProfileCard = ({ className }: { className?: string }) => {
 
   return (
     <Card className={className}>
-      <CardHeader className='flex items-start flex-row justify-between gap-2 py-0 px-6 pt-6 border-b pb-6'>
+      <CardHeader className='flex items-start flex-row justify-between gap-2 py-0 px-6 pt-6'>
         <div className='flex items-center gap-2'>
           <Avatar className='relative flex shrink-0 overflow-hidden size-[38px] rounded-lg'>
             <AvatarImage
@@ -66,7 +66,7 @@ const UserProfileCard = ({ className }: { className?: string }) => {
           </DropdownMenuContent>
         </DropdownMenu>
       </CardHeader>
-      <CardContent className='px-6 flex flex-1 flex-col gap-6 py-6'>
+      <CardContent className='px-6 flex flex-1 flex-col gap-6 py-6 pt-3'>
         <div data-orientation="horizontal" role="none" className="bg-border shrink-0 h-px w-full"></div>
         <div className='flex flex-1 flex-col gap-2'>
           <div className='flex items-baseline gap-2'>
