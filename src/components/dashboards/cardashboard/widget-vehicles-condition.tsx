@@ -1,8 +1,8 @@
 'use client'
 
-import { MoreVertical } from 'lucide-react'
+import { EllipsisVertical } from 'lucide-react'
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -59,24 +59,44 @@ const conditions: ConditionItem[] = [
 
 const VehiclesConditionCard = ({ className }: { className?: string }) => {
   return (
-    <Card className={className}>
-      <CardHeader className='flex flex-row items-center justify-between pb-6 border-b px-6'>
+    <div
+      data-slot='card'
+      className={cn(
+        'bg-card text-card-foreground flex flex-col rounded-xl border py-6 shadow-sm gap-4 col-span-full md:col-span-3 xl:col-span-2',
+        className
+      )}
+    >
+      <div
+        data-slot='card-header'
+        className='@container/card-header auto-rows-min grid-rows-[auto_auto] gap-2 px-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6 flex items-center justify-between'
+      >
         <span className='text-lg font-semibold'>Vehicles Condition</span>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <button className='text-muted-foreground hover:text-foreground size-6 rounded-full flex items-center justify-center'>
-              <MoreVertical className='size-4' />
-            </button>
+            <Button
+              variant='ghost'
+              size='icon'
+              className='text-muted-foreground hover:bg-accent hover:text-accent-foreground size-6 shrink-0 rounded-full'
+            >
+              <EllipsisVertical className='size-4' />
+              <span className='sr-only'>Menu</span>
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align='end'>
             <DropdownMenuItem>View Details</DropdownMenuItem>
             <DropdownMenuItem>Export</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </CardHeader>
-      <CardContent className='px-6 flex flex-1 flex-col justify-between gap-4 pt-6'>
+      </div>
+      <div
+        data-slot='card-content'
+        className='px-6 flex flex-1 flex-col justify-between gap-4'
+      >
         {conditions.map((item) => (
-          <div key={item.label} className='flex items-center justify-between gap-2'>
+          <div
+            key={item.label}
+            className='flex items-center justify-between gap-2'
+          >
             <div className='flex items-center justify-between gap-3'>
               <div className='relative'>
                 <svg
@@ -96,7 +116,7 @@ const VehiclesConditionCard = ({ className }: { className?: string }) => {
                     strokeWidth='5'
                     strokeDasharray='164'
                     strokeDashoffset='0'
-                    className='stroke-muted/20'
+                    className='stroke-border'
                   ></circle>
                   <circle
                     r='26'
@@ -116,21 +136,21 @@ const VehiclesConditionCard = ({ className }: { className?: string }) => {
               </div>
               <div className='flex flex-col gap-0.5'>
                 <span className='font-medium'>{item.label}</span>
-                <span className='text-muted-foreground text-sm'>{item.subtext}</span>
+                <span className='text-muted-foreground text-sm'>
+                  {item.subtext}
+                </span>
               </div>
             </div>
             <span
-              className={cn(
-                'inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden border px-2 py-0.5 text-xs font-medium rounded-sm',
-                'border-transparent bg-primary/10 text-primary'
-              )}
+              data-slot='badge'
+              className='focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden border px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] [&>svg]:pointer-events-none [&>svg]:size-3 [a&]:hover:bg-primary/90 border-transparent bg-primary/10 text-primary rounded-sm'
             >
               {item.trend}
             </span>
           </div>
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }
 
