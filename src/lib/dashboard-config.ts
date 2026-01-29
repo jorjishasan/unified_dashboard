@@ -23,6 +23,14 @@ export const dashboards: DashboardConfig[] = [
     route: '/dashboards/vehiclesales',
     color: 'blue',
     status: 'development'
+  },
+  {
+    id: 'socialanalytics',
+    title: 'Social Analytics',
+    description: 'Monitor social media performance, engagement, and campaign metrics',
+    route: '/dashboards/socialanalytics',
+    color: 'violet',
+    status: 'development'
   }
 ]
 
