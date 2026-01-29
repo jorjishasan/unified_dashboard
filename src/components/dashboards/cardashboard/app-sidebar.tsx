@@ -1,170 +1,136 @@
-import {
-  Archive,
-  Bell,
-  Box,
-  CreditCard,
-  FileText,
-  LayoutDashboard,
-  LockKeyhole,
-  Map,
-  MapPinned,
-  Settings,
-  Ship,
-  ShoppingCart,
-  Truck,
-  User,
-  Users,
-} from "lucide-react"
+import { User, Truck, Box, MapPin, House, ShoppingCart, LockKeyhole, Bell, Settings, Ship, MapPinned } from "lucide-react"
 
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarRail,
-} from "@/components/ui/sidebar"
-import { Progress } from "@/components/ui/progress"
+const pages = [
+  {
+    name: "User Profile",
+    url: "#",
+    icon: User,
+  },
+  {
+    name: "Vehicle",
+    url: "#",
+    icon: Truck,
+  },
+  {
+    name: "Inventory",
+    url: "#",
+    icon: Box,
+  },
+  {
+    name: "Tracking",
+    url: "#",
+    icon: MapPin,
+  },
+  {
+    name: "Warehouse",
+    url: "#",
+    icon: House,
+  },
+  {
+    name: "Order",
+    url: "#",
+    icon: ShoppingCart,
+  },
+]
 
-const data = {
-  pages: [
-    {
-      name: "User Profile",
-      url: "#",
-      icon: User,
-    },
-    {
-      name: "Vehicle",
-      url: "#",
-      icon: Truck,
-    },
-    {
-      name: "Inventory",
-      url: "#",
-      icon: Box,
-    },
-    {
-      name: "Tracking",
-      url: "#",
-      icon: Map,
-    },
-    {
-      name: "Warehouse",
-      url: "#",
-      icon: Archive,
-    },
-    {
-      name: "Order",
-      url: "#",
-      icon: ShoppingCart,
-    },
-  ],
-  settings: [
-    {
-      name: "User Profile",
-      url: "#",
-      icon: User,
-    },
-    {
-      name: "Change Password",
-      url: "#",
-      icon: LockKeyhole,
-    },
-    {
-      name: "Notification Settings",
-      url: "#",
-      icon: Bell,
-    },
-    {
-      name: "App Settings",
-      url: "#",
-      icon: Settings,
-    },
-    {
-      name: "Create Shipment",
-      url: "#",
-      icon: Ship,
-    },
-    {
-      name: "Fleet Status Overview",
-      url: "#",
-      icon: MapPinned,
-    },
-  ],
-}
+const settings = [
+  {
+    name: "User Profile",
+    url: "#",
+    icon: User,
+  },
+  {
+    name: "Change Password",
+    url: "#",
+    icon: LockKeyhole,
+  },
+  {
+    name: "Notification Settings",
+    url: "#",
+    icon: Bell,
+  },
+  {
+    name: "App Settings",
+    url: "#",
+    icon: Settings,
+  },
+  {
+    name: "Create Shipment",
+    url: "#",
+    icon: Ship,
+  },
+  {
+    name: "Fleet Status Overview",
+    url: "#",
+    icon: MapPinned,
+  },
+]
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar() {
   return (
-    <Sidebar {...props} className="border-r">
-      <SidebarHeader className="border-b h-14">
-        <div className="flex items-center gap-2 px-2 py-2">
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-            <Truck className="size-4" />
+    <div className="bg-muted sticky top-0 flex h-dvh w-72 flex-col border-r max-lg:hidden">
+      <div className="px-4 py-3.5 text-lg font-semibold">Logistics</div>
+      <div className="mt-5 flex flex-col px-4">
+        <div className="mb-4 grid grid-cols-2 gap-4">
+          <div className="flex flex-col items-start gap-2 rounded-md border border-gray-300 border-dashed p-2">
+            <p className="text-sm">Deliveries</p>
+            <p className="text-chart-1 text-lg font-semibold">25.9k</p>
           </div>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate text-xl font-semibold">Logistics</span>
-          </div>
-        </div>
-      </SidebarHeader>
-      <SidebarContent>
-        <div className="px-4 py-4 border-b">
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            <div className="flex flex-col items-start gap-2 rounded-md border border-dashed p-2">
-              <div className="text-sm">Deliveries</div>
-              <div className="text-lg font-semibold text-orange-500">25.9k</div>
-            </div>
-            <div className="flex flex-col items-start gap-2 rounded-md border border-dashed p-2">
-              <div className="text-sm">On the way</div>
-              <div className="text-lg font-semibold text-teal-500">4.6k</div>
-            </div>
-          </div>
-          <div className="space-y-1">
-            <div className="text-sm mb-2.5">Delivery Process</div>
-            <Progress value={30} className="h-2 bg-primary/20 [&>div]:bg-orange-500 mb-1" />
-            <div className="text-sm text-muted-foreground">Reached 30% from target</div>
+          <div className="flex flex-col items-start gap-2 rounded-md border border-gray-300 border-dashed p-2">
+            <p className="text-sm">On the way</p>
+            <p className="text-chart-2 text-lg font-semibold">4.6k</p>
           </div>
         </div>
-        <SidebarGroup className="px-4">
-          <SidebarGroupLabel className="text-foreground/70 text-sm mb-2 px-0">Pages</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu className="grid grid-cols-2 gap-4">
-              {data.pages.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild className="hover:bg-primary/5 flex flex-col items-center gap-2 rounded-md border px-2 py-4 h-auto">
-                    <a href={item.url}>
-                      <item.icon className="size-7" />
-                      <span className="text-sm">{item.name}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup className="px-4">
-          <SidebarGroupLabel className="text-foreground/70 text-sm mb-4 px-0">Settings & Profile</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu className="flex flex-col gap-1">
-              {data.settings.map((item) => (
-                <SidebarMenuItem key={item.name}>
-                  <SidebarMenuButton asChild className="flex items-center gap-2">
-                    <a href={item.url}>
-                      <item.icon className="size-4" />
-                      <span className="text-sm">{item.name}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-      <SidebarRail />
-    </Sidebar>
+        <div className="mb-6 flex flex-col">
+          <p className="mb-2.5 text-sm">Delivery Process</p>
+          <div
+            aria-valuemax={100}
+            aria-valuemin={0}
+            role="progressbar"
+            data-state="indeterminate"
+            data-max={100}
+            data-slot="progress"
+            className="bg-primary/20 relative h-2 w-full overflow-hidden rounded-full [&>div]:bg-chart-1 mb-1"
+          >
+            <div
+              data-state="indeterminate"
+              data-max={100}
+              data-slot="progress-indicator"
+              className="bg-primary h-full w-full flex-1 transition-all"
+              style={{ transform: "translateX(-70%)" }}
+            />
+          </div>
+          <p className="text-sm">Reached 30% from target</p>
+        </div>
+      </div>
+      <div className="overflow-y-auto px-4 pb-3.5">
+        <div className="mb-6 flex flex-col">
+          <p className="text-foreground/70 mb-2 text-sm">Pages</p>
+          <div className="grid grid-cols-2 gap-4">
+            {pages.map((item) => (
+              <a
+                key={item.name}
+                href={item.url}
+                className="hover:bg-primary/5 flex flex-col items-center gap-2 rounded-md border px-2 py-4"
+              >
+                <item.icon className="lucide lucide-user size-7" aria-hidden="true" />
+                <p className="text-sm">{item.name}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+        <div className="flex flex-col">
+          <p className="text-foreground/70 mb-4 text-sm">Settings & Profile</p>
+          <div className="flex flex-col gap-5">
+            {settings.map((item) => (
+              <a key={item.name} href={item.url} className="flex items-center gap-2">
+                <item.icon className="lucide size-4" aria-hidden="true" />
+                <p className="text-sm">{item.name}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }
