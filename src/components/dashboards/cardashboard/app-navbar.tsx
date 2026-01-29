@@ -198,8 +198,8 @@ export function AppNavbar() {
                 className="h-9 w-9 shrink-0 rounded-md p-0 overflow-hidden hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
               >
                 <Avatar className="h-9 w-9 rounded-md">
-                  <AvatarImage src="https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png" alt="@shadcn" className="object-cover" />
-                  <AvatarFallback className="rounded-md">CN</AvatarFallback>
+                  <AvatarImage src="https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png" alt="@jorjishasan" className="object-cover" />
+                  <AvatarFallback className="rounded-md">JH</AvatarFallback>
                 </Avatar>
               </Button>
             }

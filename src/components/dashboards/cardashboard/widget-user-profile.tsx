@@ -39,13 +39,13 @@ const UserProfileCard = ({ className }: { className?: string }) => {
           <Avatar className='relative flex shrink-0 overflow-hidden size-[38px] rounded-lg'>
             <AvatarImage
               className='aspect-square size-full rounded-lg'
-              alt='Jack Williams'
+              alt='Jorjis Hasan'
               src='https://cdn.shadcnstudio.com/ss-assets/avatar/avatar-1.png'
             />
             <AvatarFallback>JW</AvatarFallback>
           </Avatar>
           <div className='flex flex-col gap-1'>
-            <span className='text-[20px] font-medium'>@jackwilliams</span>
+            <span className='text-[20px] font-medium'>@jorjishasan</span>
             <span className='text-muted-foreground text-sm'>Business</span>
           </div>
         </div>
