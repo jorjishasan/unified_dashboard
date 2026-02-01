@@ -117,56 +117,57 @@ const dashboardTemplates: DashboardTemplate[] = [
 
 interface DashboardPreviewCardProps {
   template: DashboardTemplate
-  isLast: boolean
 }
 
-function DashboardPreviewCard({ template, isLast }: DashboardPreviewCardProps) {
+function DashboardPreviewCard({ template }: DashboardPreviewCardProps) {
   const [device, setDevice] = useState<DeviceType>('desktop')
 
   return (
-    <div className="flex flex-col">
-      <div className="flex items-center gap-2.5 mb-1">
-        <span className="relative flex shrink-0 overflow-hidden size-9 rounded-md">
-          <span className={cn('flex size-full items-center justify-center rounded-md [&>svg]:size-6', template.avatarClassName)}>
-            {template.avatarIcon}
+    <div className="flex flex-col gap-4">
+      {/* Header: icon + title + description */}
+      <div className="space-y-1.5">
+        <div className="flex items-center gap-3">
+          <span className="relative flex shrink-0 overflow-hidden size-9 rounded-lg">
+            <span className={cn('flex size-full items-center justify-center rounded-lg [&>svg]:size-5', template.avatarClassName)}>
+              {template.avatarIcon}
+            </span>
           </span>
-        </span>
-        <h3 className="text-base font-instrument-serif sm:text-lg font-semibold">
-          {template.name}
-        </h3>
+          <h3 className="text-base font-instrument-serif sm:text-lg font-semibold text-zinc-900">
+            {template.name}
+          </h3>
+        </div>
+        <p className="text-sm text-zinc-500 leading-relaxed max-w-2xl sm:pl-12">
+          {template.description}
+        </p>
       </div>
-      <p className="text-sm text-muted-foreground mb-3 max-w-2xl">
-        {template.description}
-      </p>
-      <div className="rounded-xl overflow-hidden border border-dashed border-zinc-200">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-3 px-4 sm:px-6 py-3">
-          <div className="flex items-center min-w-0 flex-1 justify-start">
+
+      <div className="rounded-xl overflow-hidden border border-dashed border-zinc-200/80 bg-zinc-50/30">
+        {/* Action bar: grouped left, Figma right */}
+        <div className="flex flex-wrap items-center justify-between gap-3 px-4 py-3 sm:px-5 sm:py-3.5 border-b border-dashed border-zinc-200/80 bg-white/80">
+          <div className="flex items-center gap-3 sm:gap-4">
             <TooltipProvider delayDuration={0}>
               <Link
                 href="/#pricing"
                 data-slot="button"
-                className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors hidden md:inline-flex [&_svg]:size-4"
+                className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors [&_svg]:size-4 shrink-0"
               >
                 <LockKeyhole className="shrink-0" aria-hidden />
                 Get Code
-                <MoveRight className="shrink-0 max-[450px]:hidden" aria-hidden />
+                <MoveRight className="shrink-0 max-[380px]:hidden" aria-hidden />
               </Link>
             </TooltipProvider>
-          </div>
-
-          <div className="flex items-center justify-center shrink-0">
-            <div className="inline-flex items-center rounded-xl border border-dashed border-zinc-200 bg-zinc-100 p-0.5 overflow-hidden divide-x divide-zinc-200">
+            <div className="inline-flex items-center rounded-lg border border-dashed border-zinc-200 bg-zinc-100/80 p-0.5 overflow-hidden divide-x divide-zinc-200">
               <DeviceControls
                 device={device}
                 onDeviceChange={setDevice}
-                className="rounded-l-xl rounded-r-none border-0"
+                className="rounded-l-lg rounded-r-none border-0"
               />
               <TooltipProvider delayDuration={0}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Link
                       href={template.href}
-                      className="flex items-center justify-center p-2 rounded-r-[10px] bg-white hover:bg-zinc-50 transition-colors shrink-0 text-zinc-600 hover:text-zinc-900 min-h-[36px]"
+                      className="flex items-center justify-center p-2 rounded-r-[6px] bg-white hover:bg-zinc-50 transition-colors shrink-0 text-zinc-600 hover:text-zinc-900 min-h-[36px] min-w-[36px]"
                       aria-label="Open fullscreen preview"
                     >
                       <ExternalLink className="size-4 shrink-0" />
@@ -177,18 +178,15 @@ function DashboardPreviewCard({ template, isLast }: DashboardPreviewCardProps) {
               </TooltipProvider>
             </div>
           </div>
-
-          <div className="flex items-center min-w-0 flex-1 justify-end">
-            <Link
-              href={template.href}
-              className="text-sm text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors shrink-0"
-            >
-              <FigmaIcon className="size-4 shrink-0" />
-              <span className="hidden sm:inline">Preview in Figma</span>
-              <span className="sm:hidden">Figma</span>
-              <ChevronRight className="size-4 shrink-0" />
-            </Link>
-          </div>
+          <Link
+            href={template.href}
+            className="text-sm font-medium text-primary hover:text-primary/80 flex items-center gap-1.5 transition-colors shrink-0 py-1.5"
+          >
+            <FigmaIcon className="size-4 shrink-0" />
+            <span className="hidden sm:inline">Preview in Figma</span>
+            <span className="sm:hidden">Figma</span>
+            <ChevronRight className="size-4 shrink-0" />
+          </Link>
         </div>
 
         {/* Dashboard Preview */}
@@ -208,7 +206,6 @@ function DashboardPreviewCard({ template, isLast }: DashboardPreviewCardProps) {
         </div>
       </div>
 
-      {!isLast && <div className="border-b border-dashed border-zinc-200 mt-6 sm:mt-8" />}
     </div>
   )
 }
@@ -217,22 +214,18 @@ export function ShowcaseDashboard() {
   return (
     <section id="dashboards" className="relative w-full bg-white py-16 sm:py-20 lg:py-24">
       <div className="max-w-4xl lg:max-w-6xl mx-auto w-full px-4 sm:px-6">
-        <div className="text-center mb-12 sm:mb-16">
+        <div className="text-left mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-zinc-900">
             Dashboard Templates
           </h2>
-          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-xl">
             Premium collection of unified dashboard templates. Preview and open any template below.
           </p>
         </div>
 
-        <div className="flex flex-col gap-6 sm:gap-8">
-          {dashboardTemplates.map((template, index) => (
-            <DashboardPreviewCard
-              key={template.id}
-              template={template}
-              isLast={index === dashboardTemplates.length - 1}
-            />
+        <div className="flex flex-col gap-12 sm:gap-14">
+          {dashboardTemplates.map((template) => (
+            <DashboardPreviewCard key={template.id} template={template} />
           ))}
         </div>
       </div>
