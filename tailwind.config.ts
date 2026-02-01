@@ -11,6 +11,9 @@ const config: Config = {
   		}
   	},
   	extend: {
+  		fontFamily: {
+  			'instrument-serif': ['var(--font-instrument-serif)', 'serif'],
+  		},
   		colors: {
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
