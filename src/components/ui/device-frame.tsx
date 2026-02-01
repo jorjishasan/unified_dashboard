@@ -1,19 +1,11 @@
 'use client'
 
 import { useState } from 'react'
+import { motion, type Transition } from 'motion/react'
 import { cn } from '@/lib/utils'
-import { Monitor, Tablet, Smartphone } from 'lucide-react'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { Monitor, Tablet } from 'lucide-react'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { BorderBeam } from '@/registry/magicui/border-beam'
-
-// ============================================================================
-// TYPES
-// ============================================================================
 
 export type DeviceType = 'desktop' | 'tablet' | 'mobile'
 
@@ -72,68 +64,91 @@ export function DeviceBackground({ className }: { className?: string }) {
   )
 }
 
-// ============================================================================
-// DEVICE CONTROLS COMPONENT
-// ============================================================================
+const CONTROL_ACTIVE_BG = 'rgb(228 228 231)'
+const CONTROL_INACTIVE_BG = 'rgb(255 255 255)'
+const tState: Transition = { duration: 0.2, ease: [0.32, 0.72, 0, 1] }
+
+function DeviceControlButton({
+  isActive,
+  onClick,
+  label,
+  ariaLabel,
+  children,
+  roundedLeft,
+  roundedRight,
+}: {
+  isActive: boolean
+  onClick: () => void
+  label: string
+  ariaLabel: string
+  children: React.ReactNode
+  roundedLeft?: boolean
+  roundedRight?: boolean
+}) {
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>
+        <motion.button
+          type="button"
+          className={cn(
+            'p-2 shrink-0 flex items-center justify-center min-w-[36px] min-h-[36px]',
+            'focus:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400 focus-visible:ring-offset-1',
+            'hover:bg-zinc-100 transition-colors duration-150',
+            roundedLeft && 'rounded-l rounded-r-none',
+            roundedRight && 'rounded-l-none rounded-r',
+            !roundedLeft && !roundedRight && 'rounded-none'
+          )}
+          animate={{
+            backgroundColor: isActive ? CONTROL_ACTIVE_BG : CONTROL_INACTIVE_BG,
+            color: isActive ? 'rgb(24 24 27)' : 'rgb(82 82 91)',
+          }}
+          whileTap={{ scale: 0.94 }}
+          transition={tState}
+          onClick={onClick}
+          aria-label={ariaLabel}
+        >
+          {children}
+        </motion.button>
+      </TooltipTrigger>
+      <TooltipContent>{label}</TooltipContent>
+    </Tooltip>
+  )
+}
 
 export function DeviceControls({ device, onDeviceChange, className }: DeviceControlsProps) {
-  const activeClass = "bg-zinc-200 text-zinc-900"
-  const inactiveClass = "bg-white text-zinc-600 hover:bg-zinc-100 transition-colors"
   return (
     <TooltipProvider delayDuration={0}>
-      <div className={cn(
-        "flex items-center divide-x divide-zinc-200 rounded-lg overflow-hidden",
-        className
-      )}>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className={cn(
-                "p-2 rounded-l-md rounded-r-none transition-all",
-                device === 'desktop' ? activeClass : inactiveClass
-              )}
-              onClick={() => onDeviceChange('desktop')}
-              aria-label="Desktop view"
-            >
-              <Monitor className="size-4 shrink-0" aria-hidden />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>Desktop</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className={cn(
-                "p-2 rounded-none transition-all",
-                device === 'tablet' ? activeClass : inactiveClass
-              )}
-              onClick={() => onDeviceChange('tablet')}
-              aria-label="Tablet view"
-            >
-              <Tablet className="size-4 shrink-0" aria-hidden />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>Tablet</TooltipContent>
-        </Tooltip>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <button
-              type="button"
-              className={cn(
-                "p-2 rounded-l-none rounded-r-md transition-all",
-                device === 'mobile' ? activeClass : inactiveClass
-              )}
-              onClick={() => onDeviceChange('mobile')}
-              aria-label="Mobile view"
-            >
-              <Smartphone className="size-4 shrink-0" aria-hidden />
-            </button>
-          </TooltipTrigger>
-          <TooltipContent>Mobile</TooltipContent>
-        </Tooltip>
-      </div>
+      <motion.div
+        className={cn('flex items-center divide-x divide-zinc-200 rounded overflow-hidden', className)}
+        initial={false}
+      >
+        <DeviceControlButton
+          isActive={device === 'desktop'}
+          onClick={() => onDeviceChange('desktop')}
+          label="Desktop"
+          ariaLabel="Desktop view"
+          roundedLeft
+        >
+          <Monitor className="size-4 shrink-0" aria-hidden />
+        </DeviceControlButton>
+        <DeviceControlButton
+          isActive={device === 'tablet'}
+          onClick={() => onDeviceChange('tablet')}
+          label="Tablet"
+          ariaLabel="Tablet view"
+        >
+          <Tablet className="size-4 shrink-0" aria-hidden />
+        </DeviceControlButton>
+        <DeviceControlButton
+          isActive={device === 'mobile'}
+          onClick={() => onDeviceChange('mobile')}
+          label="Mobile"
+          ariaLabel="Mobile view"
+          roundedRight
+        >
+          <Tablet className="size-3.5 shrink-0" aria-hidden />
+        </DeviceControlButton>
+      </motion.div>
     </TooltipProvider>
   )
 }
@@ -179,18 +194,19 @@ export function DeviceFrameContent({
       
       <div 
         className={cn(
-          "relative transition-all duration-500 ease-out",
-          isDesktop && "w-full h-full min-h-0 rounded-xl overflow-hidden bg-white z-10 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.06)] ring-1 ring-white/80 ring-inset",
+          "relative transition-all duration-500 ease-out overflow-hidden",
+          isDesktop && "w-full h-full min-h-0 rounded-xl bg-white z-10 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.15),0_0_0_1px_rgba(0,0,0,0.06)] ring-1 ring-white/80 ring-inset",
           isDesktop && "drop-shadow-sm",
-          !isDesktop && "mx-auto rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/20 z-10",
+          !isDesktop && "mx-auto rounded-[2rem] sm:rounded-[2.5rem] shadow-2xl shadow-black/20 z-10",
           isTablet && "border-[10px] sm:border-[14px] border-zinc-800 dark:border-zinc-900",
           isMobile && "border-[8px] sm:border-[12px] border-zinc-900 dark:border-zinc-800"
         )}
-        style={{ 
+        style={{
           width: isDesktop ? '100%' : dimensions.width,
           height: isDesktop ? '100%' : dimensions.height,
           maxWidth: '100%',
-          maxHeight: isDesktop ? '100%' : 'calc(100% - 3rem)'
+          maxHeight: isDesktop ? '100%' : 'calc(100% - 3rem)',
+          isolation: 'isolate',
         }}
       >
         {/* Two-dimensional border beam on desktop */}
@@ -224,7 +240,13 @@ export function DeviceFrameContent({
           <div className="absolute bottom-1.5 sm:bottom-2 left-1/2 -translate-x-1/2 w-24 sm:w-32 h-1 bg-white/30 rounded-full z-10" />
         )}
 
-        <div className="w-full h-full bg-white overflow-auto">
+        <div
+          className={cn(
+            'w-full h-full bg-white isolate',
+            isDesktop && 'rounded-xl overflow-hidden'
+          )}
+          style={isDesktop ? { borderRadius: '0.75rem' } : undefined}
+        >
           {children}
         </div>
       </div>

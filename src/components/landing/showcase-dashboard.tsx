@@ -132,9 +132,9 @@ function DashboardPreviewCard({ template }: DashboardPreviewCardProps) {
               {template.avatarIcon}
             </span>
           </span>
-          <h3 className="text-base font-instrument-serif sm:text-lg font-semibold text-zinc-900">
+          <h2 className="text-2xl lg:text-3xl font-instrument-serif tracking-relaxed" style={{ fontFamily: 'var(--font-instrument-serif)' }}>
             {template.name}
-          </h3>
+          </h2>
         </div>
         <p className="text-sm text-zinc-500 leading-relaxed max-w-2xl sm:pl-12">
           {template.description}
@@ -156,18 +156,18 @@ function DashboardPreviewCard({ template }: DashboardPreviewCardProps) {
                 <MoveRight className="shrink-0 max-[380px]:hidden" aria-hidden />
               </Link>
             </TooltipProvider>
-            <div className="inline-flex items-center rounded-lg border border-dashed border-zinc-200 bg-zinc-100/80 p-0.5 overflow-hidden divide-x divide-zinc-200">
+            <div className="inline-flex items-center rounded border border-dashed border-zinc-200 bg-zinc-100/80 p-0.5 overflow-hidden divide-x divide-zinc-200">
               <DeviceControls
                 device={device}
                 onDeviceChange={setDevice}
-                className="rounded-l-lg rounded-r-none border-0"
+                className="rounded-l rounded-r-none border-0"
               />
               <TooltipProvider delayDuration={0}>
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <Link
                       href={template.href}
-                      className="flex items-center justify-center p-2 rounded-r-[6px] bg-white hover:bg-zinc-50 transition-colors shrink-0 text-zinc-600 hover:text-zinc-900 min-h-[36px] min-w-[36px]"
+                      className="flex items-center justify-center p-2 rounded-r bg-white hover:bg-zinc-50 transition-colors shrink-0 text-zinc-600 hover:text-zinc-900 min-h-[36px] min-w-[36px]"
                       aria-label="Open fullscreen preview"
                     >
                       <ExternalLink className="size-4 shrink-0" />
@@ -214,15 +214,6 @@ export function ShowcaseDashboard() {
   return (
     <section id="dashboards" className="relative w-full bg-white py-16 sm:py-20 lg:py-24">
       <div className="max-w-4xl lg:max-w-6xl mx-auto w-full px-4 sm:px-6">
-        <div className="text-left mb-12 sm:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-zinc-900">
-            Dashboard Templates
-          </h2>
-          <p className="text-sm sm:text-base text-muted-foreground mt-2 max-w-xl">
-            Premium collection of unified dashboard templates. Preview and open any template below.
-          </p>
-        </div>
-
         <div className="flex flex-col gap-12 sm:gap-14">
           {dashboardTemplates.map((template) => (
             <DashboardPreviewCard key={template.id} template={template} />
