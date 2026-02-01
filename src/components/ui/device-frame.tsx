@@ -50,7 +50,7 @@ const LINES_ANGLE = 0
 const LINES_GAP = 2
 const LINE_WIDTH = 1
 const LINES_PERIOD = LINE_WIDTH + LINES_GAP
-const LINES_COLOR = 'rgba(0,0,0,0.07)'
+const LINES_COLOR = 'rgba(0,0,0,0.04)'
 
 export function DeviceBackground({ className }: { className?: string }) {
   return (

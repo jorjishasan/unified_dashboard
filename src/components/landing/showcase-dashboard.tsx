@@ -2,8 +2,6 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
   Tooltip,
   TooltipContent,
@@ -22,9 +20,11 @@ import {
   ShoppingCart,
   ExternalLink,
   LockKeyhole,
-  LockKeyholeOpen,
   MoveRight,
   ChevronRight,
+  Figma,
+  LayoutPanelTop,
+  PenTool,
 } from 'lucide-react'
 
 function FigmaIcon({ className }: { className?: string }) {
@@ -62,48 +62,56 @@ function FigmaIcon({ className }: { className?: string }) {
 export interface DashboardTemplate {
   id: string
   name: string
+  description: string
   slug: string
   category: string
   href: string
   status: 'available'
   icon: React.ReactNode
+  avatarIcon: React.ReactNode
+  avatarClassName: string
   embedUrl: string
-  tier: 'basic' | 'pro'
 }
 
 const dashboardTemplates: DashboardTemplate[] = [
   {
     id: 'social-analytics',
     name: 'Social Analytics',
+    description: 'Track engagement, followers, and content performance across all your social platforms. Gain actionable insights to optimize your social media strategy.',
     slug: 'dashboard-social-analytics',
     category: 'analytics',
     href: '/dashboards/socialanalytics',
     embedUrl: '/dashboards/socialanalytics',
     status: 'available',
     icon: <BarChart3 className="size-4" />,
-    tier: 'basic',
+    avatarIcon: <Figma aria-hidden />,
+    avatarClassName: 'bg-green-600/10 text-green-600',
   },
   {
     id: 'product-sales',
     name: 'Product Sales',
+    description: 'Monitor revenue, orders, and product performance in real-time. Make data-driven decisions to boost your e-commerce growth.',
     slug: 'dashboard-product-sales',
     category: 'ecommerce',
     href: '/dashboards/productsales',
     embedUrl: '/dashboards/productsales',
     status: 'available',
     icon: <ShoppingCart className="size-4" />,
-    tier: 'basic',
+    avatarIcon: <LayoutPanelTop aria-hidden />,
+    avatarClassName: 'bg-destructive/10 text-destructive',
   },
   {
     id: 'logistics',
     name: 'Logistics & Fleet',
+    description: 'Manage fleet operations, track shipments, and optimize delivery routes. Keep your logistics running smoothly with comprehensive visibility.',
     slug: 'dashboard-logistics',
     category: 'operations',
     href: '/dashboards/logistics',
     embedUrl: '/dashboards/logistics',
     status: 'available',
     icon: <Truck className="size-4" />,
-    tier: 'pro',
+    avatarIcon: <PenTool aria-hidden />,
+    avatarClassName: 'bg-sky-600/10 text-sky-600',
   },
 ]
 
@@ -117,22 +125,19 @@ function DashboardPreviewCard({ template, isLast }: DashboardPreviewCardProps) {
 
   return (
     <div className="flex flex-col">
-      <h3 className="text-base sm:text-lg font-semibold mb-2">
-        {template.name}
-      </h3>
-      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-        <Badge
-          variant="outline"
-          className={cn(
-            'text-xs font-medium',
-            template.tier === 'pro'
-              ? 'text-orange-600 border-orange-200'
-              : 'text-zinc-600 border-zinc-200'
-          )}
-        >
-          {template.tier === 'pro' ? 'Pro' : 'Basic'}
-        </Badge>
+      <div className="flex items-center gap-2.5 mb-1">
+        <span className="relative flex shrink-0 overflow-hidden size-9 rounded-md">
+          <span className={cn('flex size-full items-center justify-center rounded-md [&>svg]:size-6', template.avatarClassName)}>
+            {template.avatarIcon}
+          </span>
+        </span>
+        <h3 className="text-base font-instrument-serif sm:text-lg font-semibold">
+          {template.name}
+        </h3>
       </div>
+      <p className="text-sm text-muted-foreground mb-3 max-w-2xl">
+        {template.description}
+      </p>
       <div className="rounded-xl overflow-hidden border border-dashed border-zinc-200">
         <div className="flex flex-col sm:flex-row sm:items-center gap-3 px-4 sm:px-6 py-3">
           <div className="flex items-center min-w-0 flex-1 justify-start">
@@ -142,11 +147,7 @@ function DashboardPreviewCard({ template, isLast }: DashboardPreviewCardProps) {
                 data-slot="button"
                 className="inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium h-9 px-4 py-2 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors hidden md:inline-flex [&_svg]:size-4"
               >
-                {template.tier === 'pro' ? (
-                  <LockKeyhole className="shrink-0" aria-hidden />
-                ) : (
-                  <LockKeyholeOpen className="shrink-0" aria-hidden />
-                )}
+                <LockKeyhole className="shrink-0" aria-hidden />
                 Get Code
                 <MoveRight className="shrink-0 max-[450px]:hidden" aria-hidden />
               </Link>
